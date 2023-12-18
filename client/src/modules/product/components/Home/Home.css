@@ -1,5 +1,6 @@
 .home {
     height: 100vh;
+    background: var(--photoMask), url("../../assets/iamges/mobile_banner.jpeg");
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -90,6 +91,8 @@
   
   @media screen and (min-width: 480px) {
     .home {
+      /* background-image: url("../../assets/iamges/banner.webp"); */
+      background: var( --photoMask ), url("../../assets/iamges/banner.webp");
     }
     .home .secContainer .homeCard {
       bottom: -18%;
