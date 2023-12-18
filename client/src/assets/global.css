@@ -20,13 +20,14 @@ body {
 
 :root{
   --PrimaryColor: #640d5e7f;
+  --NavbarColor: #0000007d;
   --HoverColor: #081b3077; 
   --textColor: hsl(240, 1%, 48%);
   --whiteColorDeam: hsl(0, 0%, 93%);
   --greyBg: hsl(0, 0%, 96%);
   --greyText: rgb(190, 190, 190);
   --inputColor: hsl(330, 12%, 97%);
-  --boxShadow:  0 2px 8px 2px var( --whiteColor );
+  --boxShadow:  0 2px 8px 2px var( --NavbarColor );
 
   --whiteColor: #FFFFFF;
   --blackColor: #000000;
@@ -161,7 +162,7 @@ input{
   }
 
   .secIntro{
-    margin: 0 auto 3rem;
+    margin: 0 auto 3rem; 
   }
 
   .secIntro .secTitle{

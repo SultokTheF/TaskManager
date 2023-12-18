@@ -21,7 +21,7 @@
   
   @media screen and (max-width: 768px) {
     .header .navBar {
-      background: var(--blackColor);
+      background: var(--BlackColor);
       position: absolute;
       height: -webkit-max-content;
       height: -moz-max-content;
@@ -127,7 +127,7 @@
   }
   
   .activeHeader {
-    background: var(--blackColor);
+    background: var(--NavbarColor);
     box-shadow: var(--boxShadow);
   }
   
