@@ -19,7 +19,7 @@ const Home: React.FC = () => {
             Manage your projects with us!
           </p>
           <button data-aos="fade-up" data-aos-duration="3000" className="btn">
-            <a href="/field">Start</a>
+            <a href="/projects">Start</a>
           </button>
         </div>
       </div>
