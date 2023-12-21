@@ -74,15 +74,16 @@ li{
 .btn{
   padding: .4rem 1.5rem;
   background: var(--blueColor);
-  color: var(--darkBlueColor);
+  color: var(--whiteColor);
   border: none;
   outline: none;
   border-radius: .5rem;
   cursor: pointer;
+  font-size: large;
 }
 
 .btn a{
-  color: var(--darkBlueColor);
+  color: var(--whiteColor);
   font-weight: 500;
 }
 
