@@ -181,3 +181,99 @@ input{
     zoom: 1.7;
   }
 }
+
+.form-box {
+  /* margin-top: 25%; */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 400px;
+  padding: 40px;
+  transform: translate(-50%, -50%);
+  background: var(--primaryColor);
+  box-sizing: border-box;
+  box-shadow: 0 15px 25px var( --primaryColor );
+  border-radius: 10px;
+}
+
+.form-box h2 {
+  margin: 0 0 30px;
+  padding: 0;
+  color: var( --whiteColor );
+  text-align: center;
+}
+
+.form-box .user-box {
+  position: relative;
+}
+
+.form-box .user-box input {
+  width: 100%;
+  padding: 10px 0;
+  font-size: 16px;
+  color: var( --whiteColor );
+  margin-bottom: 30px;
+  border: none;
+  border-bottom: 1px solid var( --whiteColor );
+  outline: none;
+  background: transparent;
+}
+
+.form-box .user-box textarea {
+  width: 100%;
+  padding: 10px 0;
+  font-size: 16px;
+  color: var( --whiteColor );
+  margin-bottom: 30px;
+  border: none;
+  border-bottom: 1px solid var( --whiteColor );
+  outline: none;
+  background: transparent;
+}
+
+.form-box .user-box select {
+  width: 100%;
+  padding: 10px 0;
+  font-size: 16px;
+  color: var( --whiteColor );
+  margin-bottom: 30px;
+  border: none;
+  border-bottom: 1px solid var( --whiteColor );
+  outline: none;
+  background: transparent;
+}
+
+.form-box .user-box label {
+  position: absolute;
+  top:0;
+  left: 0;
+  padding: 10px 0;
+  font-size: 16px;
+  color: var( --whiteColor );
+  pointer-events: none;
+  transition: .5s;
+}
+
+.form-box .user-box input:focus ~ label,
+.form-box .user-box input:valid ~ label {
+  top: -20px;
+  left: 0;
+  color: var( --btnHoverColor );
+  font-size: 12px;
+}
+
+.form-box .user-box textarea:focus ~ label,
+.form-box .user-box textarea:valid ~ label {
+  top: -20px;
+  left: 0;
+  color: var( --btnHoverColor );
+  font-size: 12px;
+}
+
+.form-box .user-box select:focus ~ label,
+.form-box .user-box select:valid ~ label {
+  top: -20px;
+  left: 0;
+  color: var( --btnHoverColor );
+  font-size: 12px;
+}

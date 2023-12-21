@@ -1,0 +1,9 @@
+.login-form {
+    margin-top: 1%;
+}
+
+.login-page {
+    height: 100vh;
+    width: 100%;
+    background: url("../assets/images/auth_back.jpeg");
+}
