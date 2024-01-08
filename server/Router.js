@@ -12,7 +12,12 @@ router.post("/register", [
     check("lastname", "Lastname is required").notEmpty(),
     check("password", "Password is required").isLength({min:4, max:10})
 ],controller.register);
-router.post("/login", controller.login);
-router.get("/users", authMiddleware, controller.getUsers);
+router.post("/login", [
+    check("username", "Username is required").notEmpty(),
+    check("password", "Password is required").notEmpty()
+], controller.login);
+
+router.get("/userByToken", authMiddleware, controller.getUserByToken);
+
 
 module.exports = router;
