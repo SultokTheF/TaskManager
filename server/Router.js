@@ -3,6 +3,7 @@ const controller = require("./Controller");
 const { check } = require("express-validator");
 const authMiddleware = require("./middleware/authMiddleware");
 
+
 const router = new Router();
 
 router.post("/register", [
@@ -17,6 +18,7 @@ router.post("/login", [
     check("password", "Password is required").notEmpty()
 ], controller.login);
 
+router.get("/users", authMiddleware, controller.getUsers);
 router.get("/userByToken", authMiddleware, controller.getUserByToken);
 
 

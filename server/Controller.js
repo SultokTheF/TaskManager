@@ -33,7 +33,7 @@ class authController {
             }
 
             const hashPassword = bcrypt.hashSync(password, 5);
-            const userRole = await Role.findOne({value: "USER"});
+            const userRole = await Role.findOne({value: "ADMIN"});
             const user = new User({username, email, firstname, lastname, password: hashPassword, roles: [userRole.value]}) // Create new User
             await user.save();
 
@@ -70,13 +70,20 @@ class authController {
     
     async getUsers(req, res) {
         try {
-            const users = await User.find();
-            res.json(users); 
+            const userRoles = req.user.roles;
+    
+            if (userRoles.includes("ADMIN")) {
+                const users = await User.find();
+                res.json(users);
+            } else {
+                res.status(403).json({ message: 'Permission denied', reason: 'not enogг' });
+            }
         } catch (e) {
             console.log(e);
-            res.status(400).json({message: 'Users error'});
+            res.status(400).json({ message: 'Users error' });
         }
     }
+    
 
     async getUserByToken(req, res) {
         try {
