@@ -1,61 +1,126 @@
-import React, { useState } from "react";
+import React, { useState, ChangeEvent, FormEvent } from "react";
 import "../assets/RegisterForm.css";
+import { registerEndpoint } from "../../../helpers/endpoints";
+import axios from "axios";
+import User from "../../../types/User";
 
 const RegisterForm: React.FC = () => {
+    const [formData, setFormData] = useState<User & { confirmPassword: string }>({
+        firstname: "",
+        lastname: "",
+        username: "",
+        email: "",
+        password: "",
+        confirmPassword: "",
+    });
+
+    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = e.target;
+        setFormData((prevData) => ({ ...prevData, [name]: value }));
+    };
+
+    const handleSubmit = async (e: FormEvent) => {
+        e.preventDefault();
+
+        // Check if passwords match
+        if (formData.password !== formData.confirmPassword) {
+            console.error("Passwords do not match");
+            return;
+        }
+
+        try {
+            const response = await axios.post(registerEndpoint, formData);
+
+            console.log("Registration successful", response.data);
+            // Clear form data on successful registration
+            setFormData({
+                firstname: "",
+                lastname: "",
+                username: "",
+                email: "",
+                password: "",
+                confirmPassword: "",
+            });
+            alert("Success on Register!");
+        } catch (error) {
+            console.error("Registration failed", error);
+        }
+    };
+
     return (
         <>
             <div className="register-page">
                 <div className="form-box register-form">
                     <h2>Registration</h2>
-                    <form>
+                    <form onSubmit={handleSubmit}>
                         <div className="user-box">
                             <input
-                            type="text"
-                            required
+                                type="text"
+                                name="firstname"
+                                value={formData.firstname}
+                                onChange={handleChange}
+                                required
                             />
                             <label>First Name</label>
                         </div>
                         <div className="user-box">
                             <input
-                            type="text"
-                            required
+                                type="text"
+                                name="lastname"
+                                value={formData.lastname}
+                                onChange={handleChange}
+                                required
                             />
                             <label>Last Name</label>
                         </div>
                         <div className="user-box">
                             <input
-                            type="text"
-                            required
+                                type="text"
+                                name="username"
+                                value={formData.username}
+                                onChange={handleChange}
+                                required
                             />
                             <label>Username</label>
                         </div>
                         <div className="user-box">
                             <input
-                            type="email"
-                            required
+                                type="email"
+                                name="email"
+                                value={formData.email}
+                                onChange={handleChange}
+                                required
                             />
-                            <label>email</label>
+                            <label>Email</label>
                         </div>
                         <div className="user-box">
                             <input
-                            type="password"
-                            required
+                                type="password"
+                                name="password"
+                                value={formData.password}
+                                onChange={handleChange}
+                                required
                             />
                             <label>Password</label>
                         </div>
                         <div className="user-box">
                             <input
-                            type="password"
-                            required
+                                type="password"
+                                name="confirmPassword"
+                                value={formData.confirmPassword}
+                                onChange={handleChange}
+                                required
                             />
-                            <label>Validate Password</label>
+                            <label>Confirm Password</label>
                         </div>
-                        <button className="btn">Register</button>
+                        <button className="btn" type="submit">
+                            Register
+                        </button>
                     </form>
                 </div>
             </div>
         </>
     );
-}
+};
 
 export default RegisterForm;
