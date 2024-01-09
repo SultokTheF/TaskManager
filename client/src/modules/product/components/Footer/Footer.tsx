@@ -1,11 +1,5 @@
 import React, {useEffect} from 'react'
 import './Footer.css'
-import {ImFacebook} from 'react-icons/im'
-import {BsTwitter} from 'react-icons/bs'
-import {AiFillInstagram} from 'react-icons/ai'
-import {SiYourtraveldottv} from 'react-icons/si'
-
-import Logo from '../../../../assets/images/logo/QUSH_logo_black_expanded.png'
 
 // import AOS ============================>
 import Aos from 'aos'
@@ -37,16 +31,16 @@ const Footer: React.FC = () => {
         <div data-aos="fade-up" data-aos-duration="3000" className="footerLinks">
           <span className="linkTitle">Links</span>
           <li>
-            <a href="https://github.com/SultokTheF">Sultaniyar</a>
+            <a href="https://github.com/SultokTheF">Sultok 😏</a>
           </li>
           <li>
-            <a href="https://github.com/flamemeister">Aldiyar</a>
+            <a href="https://github.com/flamemeister">Flamemeister 💩</a>
           </li>
           <li>
-            <a href="https://github.com/nurzhanova2">Zarina</a>
+            <a href="https://github.com/nurzhanova2">Ziya 😇</a>
           </li>
           <li>
-            <a href="https://github.com/samxael">Nuray</a>
+            <a href="https://github.com/samxael">Samsa 🤡</a>
           </li>
         </div>
         <div data-aos="fade-up" data-aos-duration="3000" className="footerLinks">
