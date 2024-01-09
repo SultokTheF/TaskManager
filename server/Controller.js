@@ -76,10 +76,7 @@ class authController {
 
             res.cookie("refreshToken", refreshToken, { httpOnly: true, maxAge: 30 * 24 * 60 * 60 * 1000 });
 
-            console.log("Generated Refresh Token:", refreshToken);
-
-    
-            return res.json({ token, user });
+            return res.json({ "accessToken": token, "refreshToken": refreshToken });
         } catch (e) {
             console.log(e);
             res.status(400).json({ message: 'Login error' });
@@ -94,7 +91,7 @@ class authController {
                 const users = await User.find();
                 res.json(users);
             } else {
-                res.status(403).json({ message: 'Permission denied', reason: 'not enough rights' });
+                res.status(400).json({ message: 'Permission denied', reason: 'not enough rights' });
             }
         } catch (e) {
             console.log(e);
@@ -105,31 +102,34 @@ class authController {
 
     async getUserByToken(req, res) {
         try {
-            const user = req.user;
+            const userID = req.user.id;
     
-            if (!user) {
-                return res.status(404).json({ message: "User not found" });
+            if (!userID) {
+                return res.status(400).json({ message: "User not found" });
             }
-    
+
+            const user = await User.findOne({ _id: userID }).select('-password').select('-__v');
+            
             return res.json({ user });
         } catch (e) {
             console.log(e);
             res.status(500).json({ message: "Internal Server Error" });
         }
     }
+    
     async refreshToken(req, res) {
         try {
             const refreshToken = req.cookies.refreshToken;
 
             if (!refreshToken) {
-                return res.status(401).json({ message: "Unauthorized - No refresh token provided" });
+                return res.status(400).json({ message: "Unauthorized - No refresh token provided" });
             }
 
             const decodedData = jwt.verify(refreshToken, secret);
             const user = await User.findById(decodedData.user.id);
 
             if (!user) {
-                return res.status(404).json({ message: "User not found" });
+                return res.status(400).json({ message: "User not found" });
             }
 
             const token = generateAccessToken(user);
@@ -138,10 +138,10 @@ class authController {
             res.cookie("refreshToken", newRefreshToken, { httpOnly: true, maxAge: 30 * 24 * 60 * 60 * 1000 });
 
 
-            return res.json({ token, user });
+            return res.json({ token });
         } catch (error) {
             console.error(error);
-            return res.status(401).json({ message: "Unauthorized - Invalid refresh token" });
+            return res.status(400).json({ message: "Endpoint Error" });
         }
     }
 }

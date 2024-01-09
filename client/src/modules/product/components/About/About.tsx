@@ -88,7 +88,7 @@ const About: React.FC = () => {
             </div>
 
             <div className="cardVideo" data-aos="fade-left">
-              <video autoPlay loop>
+              <video autoPlay muted loop>
                 <source src={video} type='video/mp4'/>
               </video>
             </div>
