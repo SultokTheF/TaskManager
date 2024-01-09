@@ -23,7 +23,7 @@ class authController {
         try {
             const error = validationResult(req);
             if(!error.isEmpty()) { //  Костыль. Need to refactor this part
-                return res.status(400).json({message: "Resiter error", error});
+                return res.status(400).json({message: "Resiter error on Validation", error});
             }
             const {username, email, firstname, lastname, password} = req.body; // Get responce body
             const candidate = await User.findOne({value: "USER"}); // Check if entered userneme is unique
@@ -40,7 +40,7 @@ class authController {
             return res.json({message: "User reqister success"});
         } catch (e) {
             console.log(e);
-            res.status(400).json({message: 'Register error'});
+            res.status(400).json({message: 'Register error', error: e});
         }
     }
 
@@ -61,7 +61,7 @@ class authController {
     
             const token = generateAccessToken(user);
     
-            return res.json({ token, user });
+            return res.json({ token });
         } catch (e) {
             console.log(e);
             res.status(400).json({ message: 'Login error' });
@@ -76,7 +76,7 @@ class authController {
                 const users = await User.find();
                 res.json(users);
             } else {
-                res.status(403).json({ message: 'Permission denied', reason: 'not enogг' });
+                res.status(403).json({ message: 'Permission denied' });
             }
         } catch (e) {
             console.log(e);
@@ -87,12 +87,14 @@ class authController {
 
     async getUserByToken(req, res) {
         try {
-            const user = req.user;
+            const userID = req.user.id;
     
-            if (!user) {
+            if (!userID) {
                 return res.status(404).json({ message: "User not found" });
             }
-    
+
+            const user = await User.findOne({ _id: userID }).select('-password').select('-__v');
+            
             return res.json({ user });
         } catch (e) {
             console.log(e);

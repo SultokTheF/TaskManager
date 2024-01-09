@@ -278,3 +278,46 @@ input{
   color: var( --btnHoverColor );
   font-size: 12px;
 }
+
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+  border-radius: 5%;
+  display: none;
+  position: absolute;
+  background-color: var(--blueColor);
+  min-width: 160px;
+  box-shadow: var(--boxShadow);
+  z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+  color: var(--lightBlueColor);
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {background-color: var(--HoverColor)}
+
+.dropdown-content button {
+  color: var(--blackColor);
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content button:hover {background-color: var(--HoverColor)}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+  display: block;
+}

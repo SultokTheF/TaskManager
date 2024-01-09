@@ -155,8 +155,7 @@
   .header .navBar .navLists .navItem .navLink {
       color: var(--whiteColor);
       padding: 0 0.45rem;
-      font-size: large; 
-      /* font-weight: 500;  */
+      font-size: large;
       
   }
 

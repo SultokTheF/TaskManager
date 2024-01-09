@@ -19,10 +19,14 @@ const LoginForm: React.FC = () => {
 
         try {
             const response = await axios.post(loginEndpoint, loginData);
-            const accessToken = response.data.accessToken;
+            const accessToken = response.data.token;
 
-            localStorage.setItem("accessToken", accessToken);
-            console.log("Login successful");
+            if( response.status === 200 ) {
+                localStorage.setItem( "accessToken", accessToken );
+                window.location.replace( '/' );
+            } else {
+                alert( "Error!" );
+            } 
         } catch (error) {
             console.error("Login failed", error);
         }

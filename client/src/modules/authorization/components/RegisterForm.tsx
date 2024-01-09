@@ -31,17 +31,22 @@ const RegisterForm: React.FC = () => {
         try {
             const response = await axios.post(registerEndpoint, formData);
 
-            console.log("Registration successful", response.data);
-            // Clear form data on successful registration
-            setFormData({
-                firstname: "",
-                lastname: "",
-                username: "",
-                email: "",
-                password: "",
-                confirmPassword: "",
-            });
-            alert("Success on Register!");
+            if( response.status === 200 ) {
+                console.log("Registration successful", response.data);
+                // Clear form data on successful registration
+                setFormData({
+                    firstname: "",
+                    lastname: "",
+                    username: "",
+                    email: "",
+                    password: "",
+                    confirmPassword: "",
+                });
+                alert("Success on Register!");
+                window.location.replace( '/' )
+            } else {
+                alert( "Error!" );
+            } 
         } catch (error) {
             console.error("Registration failed", error);
         }

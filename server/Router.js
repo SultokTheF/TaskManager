@@ -19,7 +19,7 @@ router.post("/login", [
 ], controller.login);
 
 router.get("/users", authMiddleware, controller.getUsers);
-router.get("/userByToken", authMiddleware, controller.getUserByToken);
+router.get("/user", authMiddleware, controller.getUserByToken);
 
 
 module.exports = router;
