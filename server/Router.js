@@ -20,6 +20,7 @@ router.post("/login", [
 
 router.get("/users", authMiddleware, controller.getUsers);
 router.get("/user", authMiddleware, controller.getUserByToken);
+router.post("/refreshToken", authMiddleware, controller.refreshToken); 
 
 
 module.exports = router;
