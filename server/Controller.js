@@ -18,24 +18,12 @@ const generateAccessToken = (user) => {
     return jwt.sign(payload, secret, { expiresIn: "24h" });
 };
 
-const generateRefreshToken = (user) => {
-    const payload = {
-        user: {
-            id: user._id,
-            username: user.username,
-            roles: user.roles,
-        },
-    };
-
-    return jwt.sign(payload, secret, { expiresIn: "30d" }); 
-};
-
 class authController {
     async register(req, res) {
         try {
             const error = validationResult(req);
             if(!error.isEmpty()) { //  Костыль. Need to refactor this part
-                return res.status(400).json({message: "Resiter error", error});
+                return res.status(400).json({message: "Resiter error on Validation", error});
             }
             const {username, email, firstname, lastname, password} = req.body; // Get responce body
             const candidate = await User.findOne({value: "USER"}); // Check if entered userneme is unique
@@ -45,14 +33,14 @@ class authController {
             }
 
             const hashPassword = bcrypt.hashSync(password, 5);
-            const userRole = await Role.findOne({value: "ADMIN"});
-            const user = new User({username, email, firstname, lastname, password: hashPassword, roles: [userRole.value]}) // Create new User
+            const userRole = await Role.findOne({value: "USER"});
+            const user = new User({username, email, firstname, lastname, password: hashPassword, roles: [userRole.value], profile_image: Math.floor(Math.random() * 9) + 1}) // Create new User
             await user.save();
 
             return res.json({message: "User reqister success"});
         } catch (e) {
             console.log(e);
-            res.status(400).json({message: 'Register error'});
+            res.status(400).json({message: 'Register error', error: e});
         }
     }
 
@@ -72,11 +60,8 @@ class authController {
             }
     
             const token = generateAccessToken(user);
-            const refreshToken = generateRefreshToken(user);
-
-            res.cookie("refreshToken", refreshToken, { httpOnly: true, maxAge: 30 * 24 * 60 * 60 * 1000 });
-
-            return res.json({ "accessToken": token, "refreshToken": refreshToken });
+    
+            return res.json({ token });
         } catch (e) {
             console.log(e);
             res.status(400).json({ message: 'Login error' });
@@ -91,7 +76,7 @@ class authController {
                 const users = await User.find();
                 res.json(users);
             } else {
-                res.status(400).json({ message: 'Permission denied', reason: 'not enough rights' });
+                res.status(403).json({ message: 'Permission denied' });
             }
         } catch (e) {
             console.log(e);
@@ -105,7 +90,7 @@ class authController {
             const userID = req.user.id;
     
             if (!userID) {
-                return res.status(400).json({ message: "User not found" });
+                return res.status(404).json({ message: "User not found" });
             }
 
             const user = await User.findOne({ _id: userID }).select('-password').select('-__v');
@@ -117,33 +102,7 @@ class authController {
         }
     }
     
-    async refreshToken(req, res) {
-        try {
-            const refreshToken = req.cookies.refreshToken;
 
-            if (!refreshToken) {
-                return res.status(400).json({ message: "Unauthorized - No refresh token provided" });
-            }
-
-            const decodedData = jwt.verify(refreshToken, secret);
-            const user = await User.findById(decodedData.user.id);
-
-            if (!user) {
-                return res.status(400).json({ message: "User not found" });
-            }
-
-            const token = generateAccessToken(user);
-            const newRefreshToken = generateRefreshToken(user);
-
-            res.cookie("refreshToken", newRefreshToken, { httpOnly: true, maxAge: 30 * 24 * 60 * 60 * 1000 });
-
-
-            return res.json({ token });
-        } catch (error) {
-            console.error(error);
-            return res.status(400).json({ message: "Endpoint Error" });
-        }
-    }
 }
 
 module.exports = new authController();

@@ -13,6 +13,8 @@ import RegisterPage from "./pages/RegisterPage";
 
 import ProjectListPage from "./pages/ProjectListPage";
 
+import { Profile } from "./modules/user";
+
 
 
 
@@ -27,6 +29,7 @@ const App: React.FC = () => {
         <Route path="/login" element={ <LoginPage/>} />
         <Route path="/register" element={ <RegisterPage/>} />
         <Route path="/projects" element={ <ProjectListPage/>} />
+        <Route path="/profile" element={ <Profile/> } />
       </Routes>
     </>
     </>

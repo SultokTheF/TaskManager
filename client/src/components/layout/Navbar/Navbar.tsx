@@ -1,13 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import axios from "axios";
 import './Navbar.css';
 
 import {AiFillCloseCircle} from 'react-icons/ai';
 import {TbGridDots} from 'react-icons/tb';
-
-import User from "../../../types/User";
-import { userValidateEndpoint } from "../../../helpers/endpoints";
+import useUserData from "../../../helpers/useUserData";
 
 const Navbar:React.FC = () => {
   const [active, setActive]  = useState('navBar')
@@ -30,29 +27,7 @@ const Navbar:React.FC = () => {
   }
   window.addEventListener('scroll', addBg)
 
-  const [userData, setUserData] = useState<(User & { roles: Array<any> }) | null>(null);
-
-  useEffect( () => {
-      if( !localStorage.getItem( "accessToken" ) ) {
-      } else {
-        axios.get(
-          userValidateEndpoint,
-          {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem( 'accessToken' )}`,
-              'Content-Type': 'application/json',
-            },
-          }
-        ).then(response => {
-          setUserData(response.data.user);
-        }).catch(error => {
-          localStorage.removeItem( 'accessToken' );
-          window.location.replace( '/' );
-          console.error('Error fetching user data:', error);
-        });
-      }
-  }, []);
-
+  const userData = useUserData();
 
   return (
     <>

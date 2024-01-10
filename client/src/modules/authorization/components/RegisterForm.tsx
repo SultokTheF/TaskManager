@@ -11,6 +11,7 @@ const RegisterForm: React.FC = () => {
         username: "",
         email: "",
         password: "",
+        profile_image: 0,
         confirmPassword: "",
     });
 
@@ -40,6 +41,7 @@ const RegisterForm: React.FC = () => {
                     username: "",
                     email: "",
                     password: "",
+                    profile_image: 0,
                     confirmPassword: "",
                 });
                 alert("Success on Register!");

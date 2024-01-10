@@ -1,0 +1,55 @@
+.profileContainer {
+    /* margin-top: 5rem; */
+    display: flex;
+    justify-content: center;
+}
+
+.card {
+    margin-top: 7%;
+    width: 400px;
+    border: none;
+    border-radius: 10px;
+    background-color: var(--whiteColor);
+    padding: 1.5rem;
+    box-shadow: var(--boxShadow);
+}
+
+.image img {
+    border-radius: 50%;
+}
+
+.stats {
+    background: var(--whiteColor);
+    color: #000;
+    padding: 0.5rem;
+    border-radius: 5px;
+    margin-top: 0.5rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+.currentTasks,
+.currentProject,
+.tasksDone {
+    font-size: 10px;
+    color: #a1aab9;
+}
+
+.number1,
+.number2,
+.number3 {
+    margin-left: 5%;
+    font-weight: 100;
+}
+
+.button {
+    margin-top: 0.5rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.button button {
+    width: 100%;
+    margin-left: 0.5rem;
+}
