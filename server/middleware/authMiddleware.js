@@ -1,4 +1,3 @@
-// authMiddleware.js
 const jwt = require("jsonwebtoken");
 const { secret } = require("../config");
 
@@ -8,14 +7,22 @@ module.exports = function (req, res, next) {
     }
 
     try {
-        const token = req.headers.authorization.split(" ")[1];
-        if (!token) {
-            return res.status(401).json({ message: "Unauthorized - No token provsecided" });
+        const accessToken = req.headers.authorization.split(" ")[1];
+        if (!accessToken) {
+            return res.status(401).json({ message: "Unauthorized - No token provided" });
         }
 
-        const decodedData = jwt.verify(token, secret);
+        const decodedData = jwt.verify(accessToken, secret);
         req.user = decodedData.user;
 
+        const refreshToken = req.cookies.refreshToken;
+        if (!refreshToken) {
+            return res.status(401).json({ message: "Unauthorized - No refresh token provided" });
+        }
+
+        const decodedRefreshToken = jwt.verify(refreshToken, secret);
+
+        req.refreshTokenUser = decodedRefreshToken.user;
 
         next();
     } catch (error) {

@@ -17,6 +17,20 @@ const generateAccessToken = (user) => {
 
     return jwt.sign(payload, secret, { expiresIn: "24h" });
 };
+const generateRefreshToken = (user) => {
+    // Example: Generating a simple refresh token with user information
+    const payload = {
+      user: {
+        id: user._id,
+        username: user.username,
+        roles: user.roles,
+      },
+    };
+  
+    // You can customize the expiresIn and other options based on your needs
+    return jwt.sign(payload, secret, { expiresIn: "30d" }); // 30 days expiration
+  };
+
 
 class authController {
     async register(req, res) {
@@ -46,27 +60,73 @@ class authController {
 
     async login(req, res) {
         try {
-            const { username, password } = req.body;
-            const user = await User.findOne({ username });
+            const { username, password, refreshToken } = req.body;
     
+            // Add these console.log statements to check the values
+            console.log('Received username:', username);
+            console.log('Received refreshToken:', refreshToken);
+    
+            if (refreshToken) {
+                let refreshedUser;
+                try {
+                    const decodedRefreshToken = jwt.verify(refreshToken, secret);
+                    refreshedUser = decodedRefreshToken.user;
+                } catch (error) {
+                    console.log(error);
+                    return res.status(401).json({ message: 'Invalid refresh token' });
+                }
+    
+                // Add this console.log statement to check the refreshed user
+                console.log('Refreshed user:', refreshedUser);
+    
+                // Continue with the token generation logic using the refreshed user
+                const userForAccessToken = {
+                    _id: refreshedUser.id, // Use 'id' instead of '_id'
+                    username: refreshedUser.username,
+                    roles: refreshedUser.roles,
+                };
+    
+                const token = generateAccessToken(userForAccessToken);
+                const newRefreshToken = generateRefreshToken(refreshedUser);
+    
+                res.cookie('refreshToken', newRefreshToken, {
+                    httpOnly: true,
+                    maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days in milliseconds
+                });
+    
+                return res.json({ token, newRefreshToken });
+            }
+    
+            // Continue with the existing logic for the case when refreshToken is not provided
+            const user = await User.findOne({ username });
             if (!user) {
                 return res.status(400).json({ message: `User ${username} not found` });
             }
     
-            const validPassword = bcrypt.compareSync(password, user.password);
+            // Ensure that the user object has the required properties
+            const userForAccessToken = {
+                _id: user._id,
+                username: user.username,
+                roles: user.roles,
+            };
     
-            if (!validPassword) {
-                return res.status(400).json({ message: `Invalid password` });
-            }
+            const token = generateAccessToken(userForAccessToken);
+            const newRefreshToken = generateRefreshToken(user);
     
-            const token = generateAccessToken(user);
+            res.cookie('refreshToken', newRefreshToken, {
+                httpOnly: true,
+                maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days in milliseconds
+            });
     
-            return res.json({ token });
+            return res.json({ token, newRefreshToken });
         } catch (e) {
             console.log(e);
-            res.status(400).json({ message: 'Login error' });
+            return res.status(400).json({ message: 'Login error' });
         }
     }
+    
+    
+    
     
     async getUsers(req, res) {
         try {
@@ -101,6 +161,7 @@ class authController {
             res.status(500).json({ message: "Internal Server Error" });
         }
     }
+
     
 
 }
