@@ -2,7 +2,7 @@
 
 ## Overview
 
-This Task Manager Web App is a collaborative project developed by Kuandyk Sultaniyar and Saken Aldiyar for the WebApp course at Astana IT University. The application is designed to help users manage their tasks efficiently. It features a user-friendly interface, intuitive task management, and a scalable architecture with React for the frontend and Node.js for the backend.
+This Task Manager Web App is a collaborative project developed by Kuandyk Sultaniyar, Saken Aldiyar, Zarina Nurzhanova and Nurai Yelgazy for the WebApp course at Astana IT University. The application is designed to help users manage their tasks efficiently. It features a user-friendly interface, intuitive task management, and a scalable architecture with React for the frontend and Node.js for the backend.
 
 ## Features
 
