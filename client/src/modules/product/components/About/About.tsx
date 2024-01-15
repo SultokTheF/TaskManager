@@ -12,9 +12,6 @@ import MongoDB from "../../assets/iamges/MongoDB.png";
 
 import video from "../../assets/videos/Flex.MOV";
 
-import profile_image from '../../../../helpers/profile_image';
-
-
 const About: React.FC = () => {
   useEffect(()=>{
     Aos.init({duration: 2000})
