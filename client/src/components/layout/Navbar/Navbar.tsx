@@ -4,7 +4,7 @@ import './Navbar.css';
 
 import {AiFillCloseCircle} from 'react-icons/ai';
 import {TbGridDots} from 'react-icons/tb';
-import useUserData from "../../../helpers/useUserData";
+import useUserData from "../../../hooks/useUserData";
 
 const Navbar:React.FC = () => {
   const [active, setActive]  = useState('navBar')

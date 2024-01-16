@@ -3,8 +3,8 @@ import "./Profile.css";
 
 import { Link } from "react-router-dom";
 
-import useUserData from "../../../../helpers/useUserData";
-import avatar from "../../../../helpers/profile_image";
+import useUserData from "../../../../hooks/useUserData";
+import avatar from "../../../../constants/profile_image";
 
 const Profile: React.FC = () => {
   const userData = useUserData();

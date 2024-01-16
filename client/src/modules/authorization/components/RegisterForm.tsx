@@ -1,6 +1,6 @@
 import React, { useState, ChangeEvent, FormEvent } from "react";
 import "../assets/RegisterForm.css";
-import { registerEndpoint } from "../../../helpers/endpoints";
+import { registerEndpoint } from "../../../constants/endpoints";
 import axios from "axios";
 import User from "../../../types/User";
 

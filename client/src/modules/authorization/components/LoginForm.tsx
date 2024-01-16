@@ -1,6 +1,6 @@
 import React, { useState, ChangeEvent, FormEvent } from "react";
 import '../assets/LoginForm.css';
-import { loginEndpoint } from "../../../helpers/endpoints";
+import { loginEndpoint } from "../../../constants/endpoints";
 import axios from "axios";
 
 const LoginForm: React.FC = () => {

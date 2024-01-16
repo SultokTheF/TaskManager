@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
-import { userValidateEndpoint } from './endpoints';
+import { userValidateEndpoint } from '../constants/endpoints';
 import User from '../types/User';
 
 const useUserData = () => {
