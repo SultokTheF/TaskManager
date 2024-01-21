@@ -4,6 +4,8 @@ const { check } = require("express-validator");
 const authMiddleware = require("./middleware/authMiddleware");
 const authController = require("./controllers/authControllers");
 const userController = require("./controllers/userControlllers");
+const projectController = require("./controllers/projectControllers");
+const taskController = require("./controllers/taskControllers");
 
 const router = new Router();
 
@@ -26,5 +28,19 @@ router.post("/token/refresh", authMiddleware, authController.refreshToken);
 // User-related routes
 router.get("/users", authMiddleware, userController.getUsers);
 router.get("/user", authMiddleware, userController.getUserByToken);
+
+//Project-related routes
+router.post("/projects", authMiddleware, projectController.createProject);
+router.get("/projects", authMiddleware, projectController.getProjects);
+router.get("/projects/:projectId", authMiddleware, projectController.getProjectById);
+router.put("/projects/:projectId", authMiddleware, projectController.updateProject);
+router.delete("/projects/:projectId", authMiddleware, projectController.deleteProject);
+
+// Task-related routes
+router.post("/tasks", authMiddleware, taskController.createTask);
+router.get("/tasks", authMiddleware, taskController.getTasks);
+router.get("/tasks/:taskId", authMiddleware, taskController.getTaskById);
+router.put("/tasks/:taskId", authMiddleware, taskController.updateTask);
+router.delete("/tasks/:taskId", authMiddleware, taskController.deleteTask);
 
 module.exports = router;
