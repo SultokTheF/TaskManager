@@ -9,6 +9,8 @@ const LoginForm: React.FC = () => {
         password: "",
     });
 
+    const [errMsg, setErrMsg] = useState("");
+
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
         setLoginData((prevData) => ({ ...prevData, [name]: value }));
@@ -26,9 +28,11 @@ const LoginForm: React.FC = () => {
                 window.location.replace( '/' );
             } else {
                 alert( "Error!" );
+                setErrMsg("Something went wrong! Please try later")
             } 
         } catch (error) {
             console.error("Login failed", error);
+            setErrMsg("Invalid username or password")
         }
     };
 
@@ -58,6 +62,7 @@ const LoginForm: React.FC = () => {
                             />
                             <label>Password</label>
                         </div>
+                        <div className="errorMessage">{ errMsg }</div>
                         <button className="btn" type="submit">
                             Login
                         </button>

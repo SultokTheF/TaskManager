@@ -15,6 +15,8 @@ const RegisterForm: React.FC = () => {
         confirmPassword: "",
     });
 
+    const [errMsg, setErrMsg] = useState("");
+
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
         setFormData((prevData) => ({ ...prevData, [name]: value }));
@@ -26,6 +28,7 @@ const RegisterForm: React.FC = () => {
         // Check if passwords match
         if (formData.password !== formData.confirmPassword) {
             console.error("Passwords do not match");
+            setErrMsg("Passwords do not match")
             return;
         }
 
@@ -47,10 +50,11 @@ const RegisterForm: React.FC = () => {
                 alert("Success on Register!");
                 window.location.replace( '/' )
             } else {
-                alert( "Error!" );
+                setErrMsg("Something went wrong! Please try later")
             } 
         } catch (error) {
             console.error("Registration failed", error);
+            setErrMsg("This username or email is already in use!")
         }
     };
 
@@ -120,6 +124,7 @@ const RegisterForm: React.FC = () => {
                             />
                             <label>Confirm Password</label>
                         </div>
+                        <div className="errorMessage">{ errMsg }</div>
                         <button className="btn" type="submit">
                             Register
                         </button>

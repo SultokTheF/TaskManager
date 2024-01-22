@@ -7,3 +7,9 @@
     width: 100%;
     background: url("../assets/images/Auth_BG.png") no-repeat center center fixed;
 }
+
+.errorMessage {
+    color: rgb(117, 39, 39);
+    font-size: 20px;
+    margin-bottom: 5%;
+}
