@@ -36,6 +36,29 @@ class UserController {
       res.status(500).json({ message: "Internal Server Error" });
     }
   }
+
+  // Get user details by username
+  async getUserByUsername(req, res) {
+    try {
+      const { username } = req.params;
+
+      if (!username) {
+        return res.status(400).json({ message: "Username parameter is required" });
+      }
+
+      // Selecting only necessary fields and excluding sensitive information
+      const user = await User.findOne({ username }).select('-password -__v');
+
+      if (!user) {
+        return res.status(404).json({ message: "User not found" });
+      }
+
+      return res.json({ user });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: "Internal Server Error" });
+    }
+  }
 }
 
 module.exports = new UserController();
