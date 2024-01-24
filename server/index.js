@@ -16,15 +16,16 @@ app.use(cors());        // Enable Cross-Origin Resource Sharing (CORS)
 app.use(express.json()); // Parse incoming JSON requests
 
 // Use the routes
-app.use("/auth", authRoutes);
-app.use("/users", userRoutes);
-app.use("/projects", projectRoutes);
-app.use("/tasks", taskRoutes);
+const BASE_URL = "/api/v1";
+app.use(`${BASE_URL}/auth`, authRoutes);
+app.use(`${BASE_URL}/users`, userRoutes);
+app.use(`${BASE_URL}/projects`, projectRoutes);
+app.use(`${BASE_URL}/tasks`, taskRoutes);
 
 // Set the port number (use process.env.PORT for production)
 const PORT = process.env.PORT || 8080;
 
-// MongoDB connection URL (replace with your actual database URL)
+// MongoDB connection URL 
 const DB_URL = "mongodb+srv://zarina:JvMCJBGXFHDfBLfZ@test.vkiuorm.mongodb.net/";
 
 // Define a function to start the server

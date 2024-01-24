@@ -1,6 +1,6 @@
 import React, { useState, ChangeEvent, FormEvent } from "react";
 import "../assets/RegisterForm.css";
-import { registerEndpoint } from "../../../constants/endpoints";
+import { AuthEndpoints } from "../../../constants/endpoints";
 import axios from "axios";
 import User from "../../../types/User";
 
@@ -33,7 +33,7 @@ const RegisterForm: React.FC = () => {
         }
 
         try {
-            const response = await axios.post(registerEndpoint, formData);
+            const response = await axios.post(AuthEndpoints.register, formData);
 
             if( response.status === 200 ) {
                 console.log("Registration successful", response.data);

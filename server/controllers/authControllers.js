@@ -16,7 +16,7 @@ const generateAccessToken = (user) => {
     },
   };
 
-  return jwt.sign(payload, secret, { expiresIn: "24h" });
+  return jwt.sign(payload, secret, { expiresIn: "30m" });
 };
 
 // Function to generate refresh token

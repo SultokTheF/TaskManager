@@ -4,10 +4,10 @@ const projectController = require("../controllers/projectControllers");
 
 const router = new Router();
 
-router.post("/projects", authMiddleware, projectController.createProject);
-router.get("/projects", authMiddleware, projectController.getProjects);
-router.get("/projects/:projectId", authMiddleware, projectController.getProjectById);
-router.put("/projects/:projectId", authMiddleware, projectController.updateProject);
-router.delete("/projects/:projectId", authMiddleware, projectController.deleteProject);
+router.post("/", authMiddleware, projectController.createProject);
+router.get("/", authMiddleware, projectController.getProjects);
+router.get("/:projectId", authMiddleware, projectController.getProjectById);
+router.put("/:projectId", authMiddleware, projectController.updateProject);
+router.delete("/:projectId", authMiddleware, projectController.deleteProject);
 
 module.exports = router;

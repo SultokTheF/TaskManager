@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
-import { userValidateEndpoint } from '../constants/endpoints';
+import { UserEndpoints } from '../constants/endpoints';
 import User from '../types/User';
 
 const useUserData = () => {
@@ -11,7 +11,7 @@ const useUserData = () => {
     const fetchUserData = async () => {
       try {
         const response = await axios.get(
-          userValidateEndpoint,
+          UserEndpoints.getUserByToken,
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem('accessToken')}`,

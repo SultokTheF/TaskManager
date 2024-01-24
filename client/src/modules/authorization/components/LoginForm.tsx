@@ -1,6 +1,6 @@
 import React, { useState, ChangeEvent, FormEvent } from "react";
 import '../assets/LoginForm.css';
-import { loginEndpoint } from "../../../constants/endpoints";
+import { AuthEndpoints } from "../../../constants/endpoints";
 import axios from "axios";
 
 const LoginForm: React.FC = () => {
@@ -20,7 +20,7 @@ const LoginForm: React.FC = () => {
         e.preventDefault();
 
         try {
-            const response = await axios.post(loginEndpoint, loginData);
+            const response = await axios.post(AuthEndpoints.login, loginData);
             const accessToken = response.data.accessToken;
 
             if( response.status === 200 ) {
