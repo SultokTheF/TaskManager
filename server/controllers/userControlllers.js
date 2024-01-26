@@ -4,14 +4,8 @@ class UserController {
   // Get all users (for admins only)
   async getUsers(req, res) {
     try {
-      const userRoles = req.user.roles;
-
-      if (userRoles.includes("ADMIN")) {
-        const users = await User.find();
-        res.json(users);
-      } else {
-        res.status(403).json({ message: 'Permission denied' });
-      }
+      const users = await User.find();
+      res.json(users);
     } catch (error) {
       console.error(error);
       res.status(400).json({ message: 'Users error' });
