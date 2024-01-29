@@ -28,4 +28,8 @@ This Task Manager Web App is a collaborative project developed by Kuandyk Sultan
   - React: JavaScript library for building user interfaces.
   - Axios: HTTP client for making API requests.
 
+- **Backend:**
+  - Node.js: JavaScript runtime for server-side development.
+  - Express: Web application framework for Node.js.
+  - MongoDB: NoSQL database for storing task data.
 
