@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios'; // Assuming you are using Axios for HTTP requests
-import { ProjectEndpoints } from '../../../constants/endpoints'; // Adjust the path accordingly
-import ProjectCard from '../../../components/layout/ProjectCard/ProjectCard'; // Import the refactored ProjectCard
+import axios from 'axios'; 
+import { ProjectEndpoints } from '../../../constants/endpoints'; 
+import ProjectCard from '../../../components/layout/ProjectCard/ProjectCard';
 import '../assets/styles/ProjectList.css';
 import Project from '../../../types/Project';
 

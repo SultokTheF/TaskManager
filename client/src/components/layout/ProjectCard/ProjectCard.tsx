@@ -12,6 +12,14 @@ interface ProjectCardProps {
 }
 
 const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
+  const formatDate = (dueDateString: string): string => {
+    const dueDate = new Date(dueDateString); // Parse the date string
+    const year = dueDate.getFullYear();
+    const month = (dueDate.getMonth() + 1).toString().padStart(2, '0');
+    const day = dueDate.getDate().toString().padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  };
+
   useEffect(() => {
     Aos.init({ duration: 2000 });
   }, []);
@@ -21,7 +29,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
       <div className="offerBody">
         <div className="price">
           <h4>Project: {project.name}</h4> <br />
-          <h4>Due date: {project.dueDate}</h4>
+          <h4>Due date: {formatDate(project.dueDate)}</h4>
         </div>
 
         <div className="amenities flex">
@@ -35,7 +43,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
           <MdLocationOn className="icon" />
           <small>{project.location}</small>
         </div>
-        <a className="btn flex" href={`/task/${project._id}`}>
+        <a className="btn flex" href={`/projects/${project._id}`}>
           Go to Project <BsArrowRightShort className="icon" />
         </a>
       </div>

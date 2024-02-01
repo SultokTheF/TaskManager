@@ -15,7 +15,7 @@ const Profile: React.FC = () => {
         <div className="image">
           {userData?.profile_image ? (
             <>
-              <img src={avatar[userData?.profile_image]} className="rounded" width="155" />
+              <img src={avatar[userData?.profile_image]} width="155" />
             </>
           ) : (
             <>
@@ -23,31 +23,24 @@ const Profile: React.FC = () => {
             </>
           )}
         </div>
-        <div className="ml-3 w-100">
-
+        <div className="user-data">
           <h4>{userData?.firstname} {userData?.lastname}</h4>
           <span><i>@{userData?.username}</i></span>
-
-          <div className="stats">
-            <div className="stat">
-              <span className="currentTasks">Current Tasks</span> <br />
-              <span className="number1">38</span>
-            </div>
-
-            <div className="stat">
-              <span className="currentProject">Current Projects </span> <br />
-              <span className="number2">3</span>
-            </div>
-
-            <div className="stat">
-              <span className="tasksDone">Tasks Done</span> <br />
-              <span className="number3">89</span>
-            </div>
-          </div>
 
           <div className="button">
             <button className="btn"><Link to="/projects">Projects</Link></button>
             <button className="btn"><Link to="/dashboard">Dashboard</Link></button>
+          </div>
+          <div className="skills">
+            <ul>
+              <li>UI / UX</li>
+              <li>Front End Development</li>
+              <li>HTML</li>
+              <li>CSS</li>
+              <li>JavaScript</li>
+              <li>React</li>
+              <li>Node</li>
+            </ul>
           </div>
         </div>
       </div>

@@ -14,42 +14,52 @@
     box-shadow: var(--boxShadow);
 }
 
-.image img {
-    border-radius: 50%;
-}
-
-.stats {
-    background: var(--whiteColor);
-    color: #000;
-    padding: 0.5rem;
-    border-radius: 5px;
-    margin-top: 0.5rem;
+.card .image {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
 }
 
-.currentTasks,
-.currentProject,
-.tasksDone {
-    font-size: 10px;
-    color: #a1aab9;
+.card .image img {
+    width: 200px;
+    border: 5px solid var(--blueColor);
+	border-radius: 50%;
+	padding: 2px;
 }
 
-.number1,
-.number2,
-.number3 {
-    margin-left: 5%;
-    font-weight: 100;
-}
-
-.button {
-    margin-top: 0.5rem;
+.card .button {
+    margin-top: 1rem;
     display: flex;
     flex-direction: row;
     align-items: center;
 }
 
-.button button {
+.card .button button {
     width: 100%;
     margin-left: 0.5rem;
+}
+
+.card .skills {
+	text-align: left;
+	padding: 15px;
+	margin-top: 10px;
+}
+
+.card .skills ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+}
+
+.card .skills ul li {
+	border: 1px solid var(--blueColor);
+	border-radius: 2px;
+	display: inline-block;
+	font-size: 12px;
+	margin: 0 7px 7px 0;
+	padding: 7px;
+}
+
+
+.card .user-data {
+    text-align: center;
 }

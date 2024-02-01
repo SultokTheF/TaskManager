@@ -93,7 +93,7 @@ li{
 }
 
 .btn:hover a{
-  color: var(--darkBlueColor);
+  /* color: var(--darkBlueColor); */
 }
 
 .secIntro{
