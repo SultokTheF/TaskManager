@@ -4,11 +4,11 @@ class UserController {
   // Get all users (for admins only)
   async getUsers(req, res) {
     try {
-      const users = await User.find();
+      const users = await User.find().select('-password -__v');
       res.json(users);
     } catch (error) {
       console.error(error);
-      res.status(400).json({ message: 'Users error' });
+      res.status(500).json({ message: 'Internal Server Error' });
     }
   }
 
@@ -21,8 +21,11 @@ class UserController {
         return res.status(404).json({ message: "User not found" });
       }
 
-      // Selecting only necessary fields and excluding sensitive information
-      const user = await User.findOne({ _id: userID }).select('-password -__v');
+      const user = await User.findById(userID).select('-password -__v');
+
+      if (!user) {
+        return res.status(404).json({ message: "User not found" });
+      }
       
       return res.json({ user });
     } catch (error) {
@@ -31,17 +34,15 @@ class UserController {
     }
   }
 
-  // Get user details by username
-  async getUserByUsername(req, res) {
+  async getUserById(req, res) {
     try {
-      const { username } = req.params;
+      const { userId } = req.params;
 
-      if (!username) {
-        return res.status(400).json({ message: "Username parameter is required" });
+      if (!userId) {
+        return res.status(400).json({ message: "User ID parameter is required" });
       }
 
-      // Selecting only necessary fields and excluding sensitive information
-      const user = await User.findOne({ username }).select('-password -__v');
+      const user = await User.findById(userId).select('-password -__v');
 
       if (!user) {
         return res.status(404).json({ message: "User not found" });

@@ -28,7 +28,11 @@ const projectSchema = new mongoose.Schema({
   },
   location: {
     type: String 
-  }
+  },
+  assignedUsers: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User"
+  }]
 });
 
 const Project = mongoose.model("Project", projectSchema);

@@ -6,7 +6,6 @@ const { secret } = require("../config");
 const User = require("../models/User");
 const Role = require("../models/Role");
 
-// Function to generate access token
 const generateAccessToken = (user) => {
   const payload = { 
     user: {
@@ -19,7 +18,6 @@ const generateAccessToken = (user) => {
   return jwt.sign(payload, secret, { expiresIn: "30m" });
 };
 
-// Function to generate refresh token
 const generateRefreshToken = (user) => {
   const payload = {
     user: {
@@ -33,22 +31,21 @@ const generateRefreshToken = (user) => {
 };
 
 class AuthController {
-  // User registration endpoint
   async register(req, res) {
     try {
       const errors = validationResult(req);
       if (!errors.isEmpty()) { 
-        return res.status(400).json({ message: "Registration error on validation", errors });
+        return res.status(400).json({ message: "Validation error", errors });
       }
 
       const { username, email, firstname, lastname, password } = req.body; 
       const existingUser = await User.findOne({ username });
 
       if (existingUser) {
-        return res.status(400).json({ message: "This username is already in use" });
+        return res.status(400).json({ message: "Username already exists" });
       }
 
-      const hashedPassword = bcrypt.hashSync(password, 5);
+      const hashedPassword = bcrypt.hashSync(password, bcrypt.genSaltSync(10));
       const userRole = await Role.findOne({ value: "USER" });
       const newUser = new User({
         username,
@@ -62,14 +59,13 @@ class AuthController {
 
       await newUser.save();
 
-      return res.json({ message: "User registration success" });
+      return res.json({ message: "User registration successful" });
     } catch (error) {
       console.error(error);
-      res.status(400).json({ message: 'Registration error', error });
+      res.status(500).json({ message: 'Internal Server Error' });
     }
   }
 
-  // User login endpoint
   async login(req, res) {
     try {
       const { username, password } = req.body;
@@ -91,11 +87,10 @@ class AuthController {
       return res.json({ accessToken, refreshToken });
     } catch (error) {
       console.error(error);
-      res.status(400).json({ message: 'Login error' });
+      res.status(500).json({ message: 'Internal Server Error' });
     }
   }
 
-  // Refresh token endpoint
   async refreshToken(req, res) {
     try {
       const refreshToken = req.headers.authorization.split(" ")[1];
@@ -103,13 +98,12 @@ class AuthController {
         return res.status(400).json({ message: "RefreshToken is required" });
       }
 
-      const userID = req.user.id;
+      const decodedToken = jwt.verify(refreshToken, secret);
+      const user = await User.findById(decodedToken.user.id);
 
-      if (!userID) {
+      if (!user) {
         return res.status(404).json({ message: "User not found" });
       }
-
-      const user = await User.findOne({ _id: userID });
 
       const newAccessToken = generateAccessToken(user);
       const newRefreshToken = generateRefreshToken(user);

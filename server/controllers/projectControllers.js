@@ -1,4 +1,5 @@
 const Project = require("../models/Project");
+const User = require("../models/User");
 
 exports.createProject = async (req, res) => {
   try {
@@ -10,7 +11,8 @@ exports.createProject = async (req, res) => {
       description,
       createdBy,
       dueDate,
-      location
+      location,
+      assignedUsers
     });
 
     await project.save();
@@ -80,5 +82,45 @@ exports.deleteProject = async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Internal Server Error" });
+  }
+};
+
+exports.assignUserToProject = async (req, res) => {
+  const { userId, projectId } = req.body;
+
+  try {
+    const user = await User.findById(userId);
+    if (!user) throw new Error("User not found");
+
+    const project = await Project.findById(projectId);
+    if (!project) throw new Error("Project not found");
+
+    if (project.assignedUsers.includes(userId)) throw new Error("User is already assigned to the project");
+
+    project.assignedUsers.push(user._id);
+    await project.save();
+
+    res.status(200).send("User assigned to project successfully");
+  } catch (error) {
+    res.status(400).send(error.message);
+  }
+};
+
+exports.removeUserFromProject = async (req, res) => {
+  const { userId, projectId } = req.body;
+
+  try {
+    const project = await Project.findById(projectId);
+    if (!project) throw new Error("Project not found");
+
+    const index = project.assignedUsers.indexOf(userId);
+    if (index === -1) throw new Error("User is not assigned to the project");
+
+    project.assignedUsers.splice(index, 1);
+    await project.save();
+
+    res.status(200).send("User removed from project successfully");
+  } catch (error) {
+    res.status(400).send(error.message);
   }
 };
