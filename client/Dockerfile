@@ -4,6 +4,11 @@ RUN addgroup app && adduser -S -G app app
 
 WORKDIR /TaskManager
 
+USER app
+
+
+ENV NPM_CONFIG_CACHE=/TaskManager/node_modules/.cache/npm
+
 COPY package*.json ./
 
 USER root

@@ -3,7 +3,7 @@ version: "3.8"
 services:
   backend:
     build:
-      context: ./server   # Check this path
+      context: ./server   
       dockerfile: Dockerfile
     ports:
       - 8080:8080
@@ -12,7 +12,7 @@ services:
 
   frontend:
     build:
-      context: ./client   # Check this path
+      context: ./client   
       dockerfile: Dockerfile
     ports:
       - 3000:3000
