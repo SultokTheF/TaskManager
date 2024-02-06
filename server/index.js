@@ -5,7 +5,7 @@ const mongoose = require("mongoose");
 // Import routes
 const authRoutes = require("./routes/authRoutes");
 const userRoutes = require("./routes/userRoutes");
-const projectRoutes = require("./routes/projectroutes");
+const projectRoutes = require("./routes/projectRoutes");
 const taskRoutes = require("./routes/taskRoutes");
 
 // Create an Express app

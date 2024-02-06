@@ -7,8 +7,8 @@ WORKDIR /TaskManager
 COPY package*.json ./
 RUN npm install
 
-# Set permissions without chown
 RUN chmod -R 755 /TaskManager
+RUN chmod 777 /TaskManager/node_modules
 
 USER app
 
