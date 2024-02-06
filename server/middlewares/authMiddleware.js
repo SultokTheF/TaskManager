@@ -1,5 +1,6 @@
 const jwt = require("jsonwebtoken");
-const { secret } = require("../config");
+const { JWT_ACCESS } = require("../config");
+const ApiError = require("../exeptions/api-errors");
 
 // Middleware for JWT authentication
 module.exports = function (req, res, next) {
@@ -14,11 +15,11 @@ module.exports = function (req, res, next) {
 
     // Check if the token is missing
     if (!token) {
-      return res.status(401).json({ message: "Unauthorized - No token provided" });
+      throw ApiError.UnauthorizedError();
     }
 
     // Verify the token and decode the user information
-    const decodedData = jwt.verify(token, secret);
+    const decodedData = jwt.verify(token, JWT_ACCESS);
 
     // Attach the user information to the request object
     req.user = decodedData.user;
@@ -26,7 +27,6 @@ module.exports = function (req, res, next) {
     // Move to the next middleware or route handler
     next();
   } catch (error) {
-    console.error(error);
-    return res.status(401).json({ message: "Unauthorized - Invalid token" });
+    throw ApiError.UnauthorizedError();
   }
 };

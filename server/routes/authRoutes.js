@@ -19,6 +19,7 @@ router.post("/login", [
   check("password", "Password is required").notEmpty()
 ], authController.login);
 
-router.post("/token/refresh", authMiddleware, authController.refreshToken);
+router.post("/token/refresh", authController.refreshToken);
+router.post("/logout", authController.logout);
 
 module.exports = router;

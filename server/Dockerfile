@@ -1,4 +1,4 @@
-FROM node:21.6.1-alpine
+FROM node:21.5-alpine
 
 RUN addgroup app && adduser -S -G app app
 
@@ -7,7 +7,6 @@ WORKDIR /TaskManager
 COPY package*.json ./
 RUN npm install
 
-# Set permissions without chown
 RUN chmod -R 755 /TaskManager
 
 USER app
