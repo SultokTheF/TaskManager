@@ -25,7 +25,7 @@ jobs:
 
       - name: Build Docker image for server
         run: |
-          docker build -t server-image ./server \
+          docker build -t flamemeister/task-manager-server ./server \
             --build-arg NODE_VERSION=21.6.1
 
       - name: Log in to Docker Hub
