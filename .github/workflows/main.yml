@@ -11,12 +11,15 @@ on:
 jobs:
   server-build-and-test:
 
-    runs-on: ${{ matrix.os }}
+    runs-on: self-hosted
+
+    defaults:
+      run:
+        working-directory: ./server/
 
     strategy:
       matrix:
-        os: [windows-latest, macos-latest]
-        node-version: [21.6.1]
+        node-version: [14.x, 16.x, 18.x, 21.x]
 
     steps:
     - name: Checkout code
@@ -27,6 +30,7 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
+        cache-dependency-path: './server/package-lock.json'
 
     - name: Build Docker image for server
       run: |
@@ -39,6 +43,4 @@ jobs:
 
     - name: Run tests for server in Docker container
       run: |
-        docker run flamemeister/task-manager-server bash -c "npm --version && node --version && npm test"
-      env:
-        NODE_VERSION: 21.6.1
+        docker run flamemeister/task-manager-server npm test
