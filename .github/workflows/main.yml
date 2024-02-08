@@ -36,9 +36,6 @@ jobs:
         run: |
           docker push flamemeister/task-manager-server
 
-      - name: Pull Docker image from Docker Hub
-        run: docker pull flamemeister/task-manager-server
-
       - name: Run MongoDB container
         run: |
           docker run -d --name mongodb -p 27017:27017 \
