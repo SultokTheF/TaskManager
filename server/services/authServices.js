@@ -76,7 +76,7 @@ class AuthServices {
 
     await TokenServices.saveToken(user.id, tokens.refreshToken)
 
-    return {
+    return { //Return of tokens
       ...tokens
     };
   }
