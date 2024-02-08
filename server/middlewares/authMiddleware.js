@@ -13,7 +13,7 @@ module.exports = function (req, res, next) {
     // Extract the token from the Authorization header
     const token = req.headers.authorization.split(" ")[1];
 
-    // Check if the token is missing or not
+    // Check if the token is missing or not.
     if (!token) {
       throw ApiError.UnauthorizedError();
     }
