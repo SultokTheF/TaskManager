@@ -21,7 +21,7 @@ module.exports = function (req, res, next) {
     // Verify the token and decode the user information
     const decodedData = jwt.verify(token, JWT_ACCESS);
 
-    // Attach the user information to the request object.
+    // Attach the user information to the request object
     req.user = decodedData.user;
 
     // Move to the next middleware or route handler.

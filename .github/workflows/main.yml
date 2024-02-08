@@ -44,6 +44,9 @@ jobs:
           docker run -d --name mongodb -p 27017:27017 \
             -e DB_URL=mongodb+srv://zarina:JvMCJBGXFHDfBLfZ@test.vkiuorm.mongodb.net \
             mongo:latest
+            
+      - name: Sleep for MongoDB to start
+        run: sleep 10s
 
       # самса когда тесты будут готовы нужно будет убрать здесь комментарии 
       # - name: Run tests for server in Docker container
