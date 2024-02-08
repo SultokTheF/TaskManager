@@ -1,0 +1,40 @@
+name: Server CI with Docker
+
+on:
+  push:
+    paths:
+      - 'server/**' 
+  pull_request:
+    paths:
+      - 'server/**'
+
+jobs:
+  server-build-and-test:
+
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [windows-latest, macos-latest]
+        node-version: [14.x, 16.x, 18.x]
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+
+    - name: Build Docker image for server
+      run: |
+        docker build -t server-image ./server
+        docker tag server-image flamemeister/task-manager-server
+
+    - name: Push Docker image to Docker Hub
+      run: docker push flamemeister/task-manager-server
+
+    - name: Run tests for server in Docker container
+      run: docker run flamemeister/task-manager-server npm test
