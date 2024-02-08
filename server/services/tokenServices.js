@@ -14,7 +14,7 @@ class TokenServices {
     };
   
     const accessToken = jwt.sign(payload, JWT_ACCESS, { expiresIn: "30m" });
-    const refreshToken = jwt.sign(payload, JWT_REFRESH, { expiresIn: "30d" });
+    const refreshToken = jwt.sign(payload, JWT_REFRESH, { expiresIn: "30d" }); //Refresh token
     
     return {
       accessToken,
