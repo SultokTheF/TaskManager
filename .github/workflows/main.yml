@@ -10,32 +10,27 @@ on:
 
 jobs:
   server-build-and-test:
-
     runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node-version: [21.6.1]
 
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
 
-    - name: Use Node.js ${{ matrix.node-version }}
+    - name: Use Node.js 21.6.1
       uses: actions/setup-node@v3
       with:
-        node-version: ${{ matrix.node-version }}
+        node-version: 21.6.1
         cache: 'npm'
         cache-dependency-path: './server/package-lock.json'
 
     - name: Build Docker image for server
       run: |
-        docker build -t server-image ./server
-          --build-arg NODE_VERSION=${{ matrix.node-version }}
-        docker tag server-image flamemeister/task-manager-server
+        docker build -t server-image ./server \
+          --build-arg NODE_VERSION=21.6.1
 
     - name: Push Docker image to Docker Hub
       run: |
+        echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
         docker push flamemeister/task-manager-server
 
     - name: Run tests for server in Docker container
