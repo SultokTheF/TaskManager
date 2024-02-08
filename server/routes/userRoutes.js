@@ -12,5 +12,4 @@ router.get("/", authAdminMiddleware, userControllers.getUsers);
 router.get("/user", authMiddleware, userControllers.getUserByToken);
 router.get("/:userId", authMiddleware, userControllers.getUserById); // Updated endpoint
 
-// Export the router
 module.exports = router;
