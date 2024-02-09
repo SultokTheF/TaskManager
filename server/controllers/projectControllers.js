@@ -1,5 +1,29 @@
 const Project = require("../models/Project");
 const User = require("../models/User");
+const nodemailer = require('nodemailer');
+
+const sendNotificationEmail = async (email, message) => {
+  try {
+    const transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        user: 'nurzanovazarina1@gmail.com',
+        pass: 'rzdgcconjnlcedmb'
+      }
+    });
+
+    const mailOptions = {
+      from: 'nurzanovazarina1@gmail.com',
+      to: email,
+      subject: 'Project Notification',
+      text: message,
+    };
+
+    await transporter.sendMail(mailOptions);
+  } catch (error) {
+    console.error('Error sending notification email:', error);
+  }
+};
 
 exports.createProject = async (req, res) => {
   try {
@@ -12,7 +36,7 @@ exports.createProject = async (req, res) => {
       createdBy,
       dueDate,
       location,
-      assignedUsers
+      assignedUsers: []
     });
 
     await project.save();
@@ -66,7 +90,7 @@ exports.updateProject = async (req, res) => {
     res.status(200).json(project);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: "Internal Server Error" });
+    res.status(500).json({ error: "Internal Server error" });
   }
 };
 
@@ -78,7 +102,7 @@ exports.deleteProject = async (req, res) => {
       return res.status(404).json({ error: "Project not found" });
     }
 
-    res.status(200).json({ message: "Project deleted successfully" });
+    res.status(200).json({ message: "Project deleted successfully!" });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Internal Server Error" });
@@ -100,6 +124,10 @@ exports.assignUserToProject = async (req, res) => {
     project.assignedUsers.push(user._id);
     await project.save();
 
+    if (!user.email) throw new Error("User email not found");
+
+    await sendNotificationEmail(user.email, `You have been added to the project "${project.name}"`);
+
     res.status(200).send("User assigned to project successfully");
   } catch (error) {
     res.status(400).send(error.message);
@@ -118,6 +146,13 @@ exports.removeUserFromProject = async (req, res) => {
 
     project.assignedUsers.splice(index, 1);
     await project.save();
+
+    
+    const user = await User.findById(userId);
+    if (!user) throw new Error("User not found");
+
+    
+    await sendNotificationEmail(user.email, `You have been removed from the project "${project.name}"`);
 
     res.status(200).send("User removed from project successfully");
   } catch (error) {

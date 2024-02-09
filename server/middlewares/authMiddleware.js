@@ -13,7 +13,7 @@ module.exports = function (req, res, next) {
     // Extract the token from the Authorization header
     const token = req.headers.authorization.split(" ")[1];
 
-    // Check if the token is missing
+    // Check if the token is missing or not.
     if (!token) {
       throw ApiError.UnauthorizedError();
     }
@@ -24,7 +24,7 @@ module.exports = function (req, res, next) {
     // Attach the user information to the request object
     req.user = decodedData.user;
 
-    // Move to the next middleware or route handler
+    // Move to the next middleware or route handler.
     next();
   } catch (error) {
     throw ApiError.UnauthorizedError();
