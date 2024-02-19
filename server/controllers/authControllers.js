@@ -36,6 +36,21 @@ class AuthController {
     }
   }
 
+  async loginWithMetaMask(req, res, next) {
+    try {
+      const {wallet_address} = req.body;
+      if (!wallet_address) {
+        throw ApiError.BadRequest('The wallet is not found');
+      }
+
+      const userData = await AuthServices.loginWithMetaMask(wallet_address);
+      res.cookie('refreshToken', userData.refreshToken, {maxAge: 30*24*60*60*1000, httpOnly: true});
+      return res.json(userData);
+    } catch(error) {
+      next(error);
+    }
+  }
+
   async logout(req, res, next) {
     try {
       const {refreshToken} = req.cookies;

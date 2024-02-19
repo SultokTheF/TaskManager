@@ -52,6 +52,19 @@ class AuthServices {
     };
   }
 
+  async loginWithMetaMask(wallet_address){
+    const user = await User.findOne({wallet_address});
+    if(!user){
+        throw ApiError.BadRequest('The wallet is not found');
+    }
+
+    const tokens = TokenServices.generateTokens(user);
+    await TokenServices.saveToken(user.id, tokens.refreshToken);
+    return {
+      ...tokens
+    };
+  }
+
   async logout(refreshToken) {
     const token = await tokenServices.removeToken(refreshToken);
 

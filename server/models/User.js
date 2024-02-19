@@ -6,6 +6,7 @@ const UserSchema = new Schema({
     firstname: {type: String, required: true},
     lastname: {type: String, required: true},
     password: {type: String, required: true},
+    wallet_address: {type: String},
     roles: [{type: String, ref: 'Role'}],
     profile_image: {type: Number},
     created_at: { type: Date, default: Date.now }

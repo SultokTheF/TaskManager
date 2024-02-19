@@ -7,6 +7,8 @@ const router = new Router();
 
 router.get("/", authAdminMiddleware, userControllers.getUsers);
 router.get("/user", authMiddleware, userControllers.getUserByToken);
-router.get("/:userId", authMiddleware, userControllers.getUserById); // Updated endpoint.
+router.get("/:userId", authMiddleware, userControllers.getUserById);
+router.get("/user/:username", authMiddleware, userControllers.getUserByUsername);
+router.put("/update/:userId", authMiddleware, userControllers.updateUser);
 
 module.exports = router;

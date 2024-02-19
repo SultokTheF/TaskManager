@@ -27,3 +27,7 @@ declare module 'aos' {
   const value: any;
   export = value;
 }
+
+interface Window {
+  ethereum: any;
+}

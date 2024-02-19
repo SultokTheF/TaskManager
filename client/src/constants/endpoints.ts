@@ -1,6 +1,7 @@
 // api.ts
 
 const BASE_URL = "http://127.0.0.1:8080/api/v1";
+// const BASE_URL = "https://tdl-ass.onrender.com/api/v1";
 
 const createEndpoint = (path: string): string => `${BASE_URL}/${path}`;
 
@@ -8,12 +9,15 @@ const AuthEndpoints = {
   register: createEndpoint("auth/register"),
   login: createEndpoint("auth/login"),
   refreshToken: createEndpoint("auth/token/refresh"),
+  loginWithMetaMask: createEndpoint("auth/loginWithMetaMask")
 };
 
 const UserEndpoints = {
   getUsers: createEndpoint("users"),
   getUserByToken: createEndpoint("users/user"),
-  getUserByUsername: (username: string): string => createEndpoint(`users/${username}`),
+  getUserByID: (userID: string): string => createEndpoint(`users/${userID}`),
+  getUserByUsername: (username: string): string => createEndpoint(`users/user/${username}`),
+  updateUser: (userID: string): string => createEndpoint(`users/update/${userID}`),
 };
 
 const ProjectEndpoints = {

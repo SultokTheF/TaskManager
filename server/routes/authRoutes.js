@@ -1,7 +1,7 @@
 const Router = require("express");
 const { check } = require("express-validator");
 
-const authMiddleware = require("../middlewares/authMiddleware");
+// const authMiddleware = require("../middlewares/authMiddleware");
 const authController = require("../controllers/authControllers");
 
 const router = new Router();
@@ -18,6 +18,8 @@ router.post("/login", [
   check("username", "Username is required").notEmpty(),
   check("password", "Password is required").notEmpty()
 ], authController.login);
+
+router.post("/loginWithMetaMask", authController.loginWithMetaMask);
 
 router.post("/token/refresh", authController.refreshToken);
 router.post("/logout", authController.logout);

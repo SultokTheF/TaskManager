@@ -1,13 +1,60 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { Link } from "react-router-dom";
+import detectEthereumProvider from "@metamask/detect-provider";
+
 import "./Profile.css";
 
-import { Link } from "react-router-dom";
-
 import useUserData from "../../../../hooks/useUserData";
+import { UserEndpoints } from "../../../../constants/endpoints";
 import avatar from "../../../../constants/profile_image";
 
 const Profile: React.FC = () => {
   const userData = useUserData();
+
+  const [hasProvider, setHasProvider] = useState<boolean | null>(null);
+  const initialState = { accounts: [] };              
+  const [wallet, setWallet] = useState(initialState);
+
+  useEffect(() => {
+    const getProvider = async () => {
+      const provider = await detectEthereumProvider({ silent: true })
+      setHasProvider(Boolean(provider));
+    }
+
+    getProvider()
+  }, []) 
+
+  const handleConnect = async () => {              
+    const accounts = await window.ethereum.request({ 
+      method: "eth_requestAccounts",               
+    });                  
+
+    setWallet({ accounts });
+    
+    try {
+      console.log(userData?._id);
+      const response = await axios.put(UserEndpoints.updateUser(userData?._id || ""), 
+        {
+          wallet_address: accounts[0]
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+            'Content-Type': 'application/json',
+          },
+        }  
+      );
+
+      if (response.status = 200) {
+        window.location.reload();
+      } else {
+        alert("Error connecting wallet!")
+      }
+    } catch(error) {
+      console.error("Error", error);
+    }
+  }
 
   return (
     <div className="profileContainer">
@@ -32,15 +79,15 @@ const Profile: React.FC = () => {
             <button className="btn"><Link to="/dashboard">Dashboard</Link></button>
           </div>
           <div className="skills">
-            <ul>
-              <li>UI / UX</li>
-              <li>Front End Development</li>
-              <li>HTML</li>
-              <li>CSS</li>
-              <li>JavaScript</li>
-              <li>React</li>
-              <li>Node</li>
-            </ul>
+            {!userData?.wallet_address && 
+              <>
+                { hasProvider &&
+                  <button type="button" className="login-with-metamask-btn" onClick={handleConnect}>
+                    Connect MetaMask
+                  </button>
+                } 
+              </>
+            }
           </div>
         </div>
       </div>
