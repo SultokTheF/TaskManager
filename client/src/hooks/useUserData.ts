@@ -28,7 +28,7 @@ const useUserData = () => {
     };
 
     if (!localStorage.getItem('accessToken')) {
-      // Handle the case when there is no access token
+      // window.location.replace('/');
     } else {
       fetchUserData();
     }

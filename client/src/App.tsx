@@ -13,6 +13,7 @@ import RegisterPage from "./pages/RegisterPage";
 
 import ProjectListPage from "./pages/ProjectListPage";
 import ProjectDetailsPage from "./pages/ProjectDetailsPage";
+import ProjectFormPage from "./pages/ProjectFormpage";
 
 import { Profile } from "./modules/user";
 
@@ -33,6 +34,7 @@ const App: React.FC = () => {
 
         <Route path="/projects" element={ <ProjectListPage/>} />
         <Route path="/projects/:id" element={ <ProjectDetailsPage/>} />
+        <Route path="/projects/create" element={ <ProjectFormPage/>} />
 
         <Route path="/profile" element={ <Profile/> } />
       </Routes>

@@ -37,6 +37,7 @@ const ProjectList: React.FC = () => {
             <h2 className='secTitle'>
               All the current projects
             </h2>
+            <a href="projects/create" className='btn'>Create Project</a>
           </div>
 
           <div className="mainContent grid">

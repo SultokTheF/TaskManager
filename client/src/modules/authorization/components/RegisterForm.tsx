@@ -61,7 +61,7 @@ const RegisterForm: React.FC = () => {
     return (
         <>
             <div className="register-page">
-                <div className="form-box register-form">
+            <div className="form-box register-form">
                     <h2>Registration</h2>
                     <form onSubmit={handleSubmit}>
                         <div className="user-box">
