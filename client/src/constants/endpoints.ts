@@ -26,6 +26,7 @@ const ProjectEndpoints = {
   getProjectById: (projectId: string): string => createEndpoint(`projects/${projectId}`),
   updateProject: (projectId: string): string => createEndpoint(`projects/${projectId}`),
   deleteProject: (projectId: string): string => createEndpoint(`projects/${projectId}`),
+  assignUserToPoject: createEndpoint("projects/assignUserToProject")
 };
 
 const TaskEndpoints = {
@@ -36,9 +37,14 @@ const TaskEndpoints = {
   deleteTask: (taskId: string): string => createEndpoint(`tasks/${taskId}`),
 };
 
+const ChatEndpoints = {
+  chat: createEndpoint("chat")
+}
+
 export {
   AuthEndpoints,
   UserEndpoints,
   ProjectEndpoints,
   TaskEndpoints,
+  ChatEndpoints
 };

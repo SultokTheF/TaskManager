@@ -63,3 +63,38 @@
 	opacity: 0.6;
 	letter-spacing: 1px;
 }
+
+/* styles.css */
+.projects-container .form-container {
+	color: white;
+  margin: 20px;
+}
+
+.projects-container label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.projects-container input[type='text'] {
+  width: 100%;
+  padding: 8px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.projects-container input[type='text']:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+.projects-container .btn {
+	width: 100%;
+	margin-top: 1%;
+}
+
+.project-info .btn {
+	width: 100%;	
+	/* margin: 50%; */
+}

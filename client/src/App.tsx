@@ -15,6 +15,8 @@ import ProjectListPage from "./pages/ProjectListPage";
 import ProjectDetailsPage from "./pages/ProjectDetailsPage";
 import ProjectFormPage from "./pages/ProjectFormpage";
 
+import ChatPage from "./pages/ChatPage";
+
 import { Profile } from "./modules/user";
 
 
@@ -35,6 +37,8 @@ const App: React.FC = () => {
         <Route path="/projects" element={ <ProjectListPage/>} />
         <Route path="/projects/:id" element={ <ProjectDetailsPage/>} />
         <Route path="/projects/create" element={ <ProjectFormPage/>} />
+
+        <Route path="/chat/:id" element={ <ChatPage/> } />
 
         <Route path="/profile" element={ <Profile/> } />
       </Routes>

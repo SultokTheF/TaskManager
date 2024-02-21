@@ -7,6 +7,7 @@ import Project from '../../../types/Project';
 
 const ProjectList: React.FC = () => {
   const [projects, setProjects] = useState<Project[]>([]);
+  const [shownProjects, setShownProjects] = useState(true);
 
   useEffect(() => {
     const fetchProjects = async () => {
@@ -29,6 +30,14 @@ const ProjectList: React.FC = () => {
     fetchProjects();
   }, []);
 
+  const setMyProjects = () => {
+    setShownProjects(true);
+  }
+
+  const setAssingedProjects = () => {
+    setShownProjects(false);
+  }
+
   return (
     <div className='project-list'>
       <section className='offer section container'>
@@ -37,15 +46,32 @@ const ProjectList: React.FC = () => {
             <h2 className='secTitle'>
               All the current projects
             </h2>
-            <a href="projects/create" className='btn'>Create Project</a>
+            <div className="buttons flex">
+              <a href="projects/create" className='btn'>Create Project</a>
+              <button className='btn' onClick={setMyProjects}>My Projects</button>
+              <button className='btn' onClick={setAssingedProjects}>Assigned Projects</button>
+            </div>
           </div>
 
-          <div className="mainContent grid">
-            {/* Pass projects array as props to ProjectCard */}
-            {projects.map((project, index) => (
-              <ProjectCard key={index} project={project} />
-            ))}
-          </div>
+          {shownProjects ? (
+            <>
+              <div className="mainContent grid">
+                {/* Pass projects array as props to ProjectCard */}
+                {projects.map((project, index) => (
+                  <ProjectCard key={index} project={project} />
+                ))}
+              </div>
+            </>
+          ) : (
+            <>
+              <div className="mainContent grid">
+                {/* Pass projects array as props to ProjectCard */}
+                {projects.map((project, index) => (
+                  <ProjectCard key={index} project={project} />
+                ))}
+              </div>
+            </>
+          )}
           <br />
           <br />
         </div>
