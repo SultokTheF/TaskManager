@@ -1,4 +1,5 @@
 .chat {
+  overflow-y: hidden;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -19,7 +20,15 @@
   justify-content: flex-end;
   flex-direction: column;
   align-self: flex-end;
-  color: var(--textColor);
+  color: var(--whiteColor);
+}
+
+.bubbleWrapper .other{
+  color: var(--blackColor);
+}
+
+.bubbleWrapper .info {
+  color: var(--greyColor);
 }
 
 .inlineContainer {
@@ -31,7 +40,10 @@
 }
 
 .inlineIcon {
-  width: 20px;
+  border: 3px var(--blueColor) solid;
+  padding: 5%;
+  border-radius: 50%;
+  width: 80px;
   object-fit: contain;
 }
 
@@ -40,9 +52,8 @@
   max-width: 700px;
   padding: 14px 18px;
   margin: 6px 8px;
-  background-color: var(--PrimaryColor); /* Match global primary color */
+  background-color: var(--blueColor); /* Match global primary color */
   border-radius: 16px 16px 0 16px;
-  border: 1px solid #443f56; /* Adjust border color */
 }
 
 .otherBubble {
@@ -52,7 +63,7 @@
   margin: 6px 8px;
   background-color: var(--greyBg); /* Match global background color */
   border-radius: 16px 16px 16px 0;
-  border: 1px solid var(--PrimaryColor); /* Match global primary color */
+  border: 1px solid var(--blueColor); /* Match global primary color */
 }
 
 .own {
@@ -66,15 +77,15 @@
 span.own,
 span.other {
   font-size: 14px;
-  color: var(--greyText); /* Match global text color */
+  color: var(--whiteColor); 
 }
 
 .msger-inputarea {
   display: flex;
   width: 100%;
   padding: 10px;
-  border-top: 1px solid var(--PrimaryColor); /* Match global primary color */
-  background-color: var(--inputColor); /* Match global input color */
+  border-top: 1px solid var(--blueColor); /* Match global primary color */
+  background-color: var(--blackColor); /* Match global input color */
   bottom: 0;
 }
 

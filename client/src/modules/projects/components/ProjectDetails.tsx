@@ -85,7 +85,7 @@ const ProjectDetails: React.FC = () => {
         console.error("Registration failed", error);
         setErrMsg("This username or email is already in use!")
     }
-};
+  };
 
   return (
     <div className="projects-container"> 

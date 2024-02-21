@@ -39,7 +39,7 @@ const Chat: React.FC = () => {
   }, [messages]);
 
   const isOwnMessage = (sender: string | undefined) => {
-    return sender === userData?.username;
+    return sender === userData?._id;
   };
 
   const handleSendMessage = (e: React.FormEvent) => {
@@ -49,7 +49,9 @@ const Chat: React.FC = () => {
       const newMessage = {
         sender: userData?._id,
         message: inputMessage,
-        project: id // Use projectId obtained from URL params
+        project: id,
+        username: userData?.username,
+        profileImage: userData?.profile_image
       };
 
       const socket = io(ChatEndpoints.chat);
@@ -63,7 +65,9 @@ const Chat: React.FC = () => {
     <>
       <div className="chat">
         <div className="chat-msg" ref={messagesRef}>
-          {messages.map((message, index) => (
+        {messages
+          .filter(message => message.project === id)
+          .map((message, index) => (
             <div className="bubbleWrapper" key={index}>
               <div
                 className={`inlineContainer ${
@@ -83,11 +87,12 @@ const Chat: React.FC = () => {
                   {message.message}
                 </div>
               </div>
-              <span className={isOwnMessage(message.sender) ? "own" : "other"}>
-                {message.sender}: {message.timestamp}
+              <span className={isOwnMessage(message.sender) ? "own info" : "other info"}>
+                {message.username}: {message.timestamp}
               </span>
             </div>
-          ))}
+          ))
+        }
         </div>
 
         {localStorage.getItem("accessToken") ? (
