@@ -1,7 +1,7 @@
 // api.ts
 
-const BASE_URL = "http://127.0.0.1:8080/api/v1";
-// const BASE_URL = "https://tdl-ass.onrender.com/api/v1";
+// const BASE_URL = "http://127.0.0.1:8080/api/v1";
+const BASE_URL = "https://tdl-ass.onrender.com/api/v1";
 
 const createEndpoint = (path: string): string => `${BASE_URL}/${path}`;
 
@@ -38,7 +38,8 @@ const TaskEndpoints = {
 };
 
 const ChatEndpoints = {
-  chat: "http://127.0.0.1:8081/"
+  // chat: "http://127.0.0.1:8081/"
+  chat: "https://taskmanager-alt4.onrender.com"
 }
 
 export {
