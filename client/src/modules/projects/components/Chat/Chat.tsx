@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
+import { useParams } from "react-router-dom"; // Import useParams
 import "./Chat.css";
 import io from "socket.io-client";
 
@@ -7,6 +8,7 @@ import { ChatEndpoints } from "../../../../constants/endpoints";
 import avatar from "../../../../constants/profile_image";
 
 const Chat: React.FC = () => {
+  const { id } = useParams<{ id: string }>();
   const userData = useUserData();
   const messagesRef = useRef<HTMLDivElement>(null);
 
@@ -45,9 +47,9 @@ const Chat: React.FC = () => {
 
     if (inputMessage.trim() !== "") {
       const newMessage = {
-        sender: userData?.username,
+        sender: userData?._id,
         message: inputMessage,
-        profileImage: userData?.profile_image,
+        project: id // Use projectId obtained from URL params
       };
 
       const socket = io(ChatEndpoints.chat);

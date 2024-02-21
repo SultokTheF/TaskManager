@@ -1,9 +1,10 @@
 .chat {
   position: absolute;
-	top: 50%;
+  top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   width: 70%;
+  background-color: var(--blackColor); /* Match global background color */
 }
 
 .chat .chat-msg {
@@ -13,71 +14,79 @@
 }
 
 .bubbleWrapper {
-	padding: 10px 10px;
-	display: flex;
-	justify-content: flex-end;
-	flex-direction: column;
-	align-self: flex-end;
+  padding: 10px 10px;
+  display: flex;
+  justify-content: flex-end;
+  flex-direction: column;
+  align-self: flex-end;
   color: var(--textColor);
 }
+
 .inlineContainer {
   display: inline-flex;
 }
+
 .inlineContainer.own {
   flex-direction: row-reverse;
 }
+
 .inlineIcon {
-  width:20px;
+  width: 20px;
   object-fit: contain;
 }
+
 .ownBubble {
-	min-width: 60px;
-	max-width: 700px;
-	padding: 14px 18px;
+  min-width: 60px;
+  max-width: 700px;
+  padding: 14px 18px;
   margin: 6px 8px;
-	background-color: var(--primaryColor);
-	border-radius: 16px 16px 0 16px;
-	border: 1px solid #443f56;
- 
+  background-color: var(--PrimaryColor); /* Match global primary color */
+  border-radius: 16px 16px 0 16px;
+  border: 1px solid #443f56; /* Adjust border color */
 }
+
 .otherBubble {
-	min-width: 60px;
-	max-width: 700px;
-	padding: 14px 18px;
+  min-width: 60px;
+  max-width: 700px;
+  padding: 14px 18px;
   margin: 6px 8px;
-	background-color: var(-bgColor);
-	border-radius: 16px 16px 16px 0;
-	border: 1px solid var(--primaryColor);
-  
+  background-color: var(--greyBg); /* Match global background color */
+  border-radius: 16px 16px 16px 0;
+  border: 1px solid var(--PrimaryColor); /* Match global primary color */
 }
+
 .own {
-	align-self: flex-end;
+  align-self: flex-end;
 }
+
 .other {
-	align-self: flex-start;
+  align-self: flex-start;
 }
+
 span.own,
-span.other{
+span.other {
   font-size: 14px;
-  color: grey;
+  color: var(--greyText); /* Match global text color */
 }
 
 .msger-inputarea {
   display: flex;
   width: 100%;
   padding: 10px;
-  border-top: 1px solid var(--primaryColor); /* Fix typo in border property */
-  background-color: var(--bgcolor);
+  border-top: 1px solid var(--PrimaryColor); /* Match global primary color */
+  background-color: var(--inputColor); /* Match global input color */
   bottom: 0;
 }
+
 .msger-inputarea * {
   border: none;
   font-size: 1em;
 }
+
 .msger-input {
   margin: 5px;
   flex: 1;
-  color: var(--textColor);
+  color: var(--textColor); /* Match global text color */
   padding: 10px;
-  background-color: var(--bgcolor);
+  background-color: var(--inputColor); /* Match global input color */
 }
